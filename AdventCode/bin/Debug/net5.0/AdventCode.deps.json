@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "AdventCode/1.0.0": {
+        "dependencies": {
+          "AdventCodeLib": "1.0.0"
+        },
+        "runtime": {
+          "AdventCode.dll": {}
+        }
+      },
+      "AdventCodeLib/1.0.0": {
+        "runtime": {
+          "AdventCodeLib.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AdventCode/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AdventCodeLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

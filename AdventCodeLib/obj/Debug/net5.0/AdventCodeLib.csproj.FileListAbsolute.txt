@@ -1,0 +1,12 @@
+C:\workspace\adventOfCode\AdventcodeLib\bin\Debug\net5.0\AdventCodeLib.deps.json
+C:\workspace\adventOfCode\AdventcodeLib\bin\Debug\net5.0\AdventCodeLib.dll
+C:\workspace\adventOfCode\AdventcodeLib\bin\Debug\net5.0\ref\AdventCodeLib.dll
+C:\workspace\adventOfCode\AdventcodeLib\bin\Debug\net5.0\AdventCodeLib.pdb
+C:\workspace\adventOfCode\AdventcodeLib\obj\Debug\net5.0\AdventCodeLib.csprojAssemblyReference.cache
+C:\workspace\adventOfCode\AdventcodeLib\obj\Debug\net5.0\AdventCodeLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\workspace\adventOfCode\AdventcodeLib\obj\Debug\net5.0\AdventCodeLib.AssemblyInfoInputs.cache
+C:\workspace\adventOfCode\AdventcodeLib\obj\Debug\net5.0\AdventCodeLib.AssemblyInfo.cs
+C:\workspace\adventOfCode\AdventcodeLib\obj\Debug\net5.0\AdventCodeLib.csproj.CoreCompileInputs.cache
+C:\workspace\adventOfCode\AdventcodeLib\obj\Debug\net5.0\AdventCodeLib.dll
+C:\workspace\adventOfCode\AdventcodeLib\obj\Debug\net5.0\ref\AdventCodeLib.dll
+C:\workspace\adventOfCode\AdventcodeLib\obj\Debug\net5.0\AdventCodeLib.pdb
