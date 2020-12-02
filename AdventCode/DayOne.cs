@@ -1,18 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace AdventCode
 {
-    public class DayOne
-    {
+    public class Advent{
 
         static void Main(string[] args)
         {
-            int[] input = readFile(@"C:\workspace\adventOfCode\AdventCode\inputDayOne.txt");
-            int result1 =  dayOneSolutionPartOne(input);
-            int result2 = dayOneSolutionPartTwo(input);
+            DayOne dayOne = new DayOne();
+            int[] input1 = readFile(@"C:\workspace\adventOfCode\AdventCode\inputDayOne.txt");
+            int result1 = dayOne.dayOneSolutionPartOne(input1);
+            int result2 = dayOne.dayOneSolutionPartTwo(input1);
             Console.WriteLine(result1);
             Console.WriteLine(result2);
+            string[] input2 = readOriginalText(@"C:\workspace\adventOfCode\AdventCode\inputDayTwo.txt");
+            DayTwo dayTwo = new DayTwo();
+            int result3 = dayTwo.getValidPasswords(input2);
+            int result4 = dayTwo.getValidPasswordsTwo(input2);
+            Console.WriteLine(result3);
+            Console.WriteLine(result4);
         }
 
         static int[] readFile(string path){
@@ -20,7 +27,20 @@ namespace AdventCode
             int[] input = Array.ConvertAll(lines, s => int.Parse(s));
             return input;
         }
-        static int dayOneSolutionPartOne(int[] input){
+
+        static string[] readOriginalText(string path){
+            string[] lines = System.IO.File.ReadAllLines(path);
+            return lines;
+        }
+
+
+    }
+
+    public class DayOne
+    {
+
+
+        public int dayOneSolutionPartOne(int[] input){
 
             int num1, num2;
             var result = 0;
@@ -39,7 +59,7 @@ namespace AdventCode
             return result;
         }
 
-        static int dayOneSolutionPartTwo(int[] input){
+        public int dayOneSolutionPartTwo(int[] input){
 
             int num1, num2, num3;
             var result = 0;
@@ -64,5 +84,48 @@ namespace AdventCode
 
         }
     
+    }
+
+    public class DayTwo
+    {
+
+        public int getValidPasswords(string[] lines){
+            int validPasswords = 0;
+            char[] delimiterChars = {' ', '-', ':'};
+            foreach(string line in lines){
+                string[] values = line.Split(delimiterChars);
+                int minimum = int.Parse(values[0]);
+                int maximum = int.Parse(values[1]);
+                string letter = values[2];
+                string word = values[4];
+                int occurrences = Regex.Matches(word, letter).Count;
+                if(occurrences >= minimum && occurrences <= maximum){
+                    validPasswords++;
+                }
+            }
+            return validPasswords;
+        }
+
+
+        public int getValidPasswordsTwo(string[] lines){
+            int validPasswords = 0;
+            char[] delimiterChars = {' ', '-', ':'};
+            foreach(string line in lines){
+                string[] values = line.Split(delimiterChars);
+                int index1 = int.Parse(values[0]);
+                int index2 = int.Parse(values[1]);
+                char letter = char.Parse(values[2]);
+                string word = values[4];
+                if(word[index1-1] == letter && word[index2-1] != letter ){
+                    validPasswords++;
+                } else if(word[index1-1] != letter && word[index2-1] == letter){
+                    validPasswords++;
+                }
+            }
+            return validPasswords;
+        }
+
+
+
     }
 }
