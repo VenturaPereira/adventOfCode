@@ -28,6 +28,12 @@ namespace AdventCode
             int result6 = dayThree.trajectoryTwo(input3,slopes);
             Console.WriteLine(result5);
             Console.WriteLine(result6);
+            string[] input4  = readOriginalText(@"C:\workspace\adventOfCode\AdventCode\inputDayFourS.txt");
+            DayFour dayFour = new DayFour();
+            int result7 = dayFour.validPassports(input4);
+            int result8 = dayFour.validPassportsTwo(input4);
+            Console.WriteLine(result7);
+            Console.WriteLine(result8);
         }
 
         static int[] readFile(string path){
@@ -170,6 +176,118 @@ namespace AdventCode
             }
             return result;
         }
+
+
+
+    }
+
+
+    public class DayFour{
+
+        public int validPassports(string[] input){
+
+            var result = 0;
+            string parameters = "";
+            foreach(string line in input){
+                if(Regex.Matches(line, ":").Count > 0){
+                    parameters = parameters + " " + line;   
+                } else{
+                    int occurrences = Regex.Matches(parameters, ":").Count;
+                    if(occurrences == 8 || (occurrences == 7 && Regex.Matches(parameters, "cid").Count == 0)){
+                        result = result +1;  
+                    }
+                    parameters = "";
+                }
+                
+            }
+
+
+            return result;
+        }
+
+        public int validPassportsTwo(string[] input){
+            
+            var result = 0;
+            int keyLength = 4;
+            string parameters = "";
+            foreach(string line in input){
+                if(Regex.Matches(line, ":").Count > 0){
+                    parameters = parameters + " " + line;   
+                } else{
+                    int occurrences = Regex.Matches(parameters, ":").Count;
+                    if(occurrences == 8 || (occurrences == 7 && Regex.Matches(parameters, "cid").Count == 0)){
+                        int byrPosition = parameters.IndexOf("byr");
+                        int byrSpace = parameters.IndexOf(" ", byrPosition);
+                        if(byrSpace == -1){
+                            byrSpace = parameters.Length;
+                        }
+                        int byrValue = int.Parse(parameters.Substring(byrPosition+keyLength, byrSpace-byrPosition-keyLength));
+                        int iyrPosition = parameters.IndexOf("iyr");
+                        int iyrSpace = parameters.IndexOf(" ", iyrPosition);
+                        if(iyrSpace == -1){
+                            iyrSpace = parameters.Length;
+                        }
+                        int iyrValue = int.Parse(parameters.Substring(iyrPosition+keyLength, iyrSpace-iyrPosition-keyLength));          
+                        int eyrPosition = parameters.IndexOf("eyr");
+                        int eyrSpace = parameters.IndexOf(" ", eyrPosition);
+                        if(eyrSpace == -1){
+                            eyrSpace = parameters.Length;
+                        }
+                        int eyrValue = int.Parse(parameters.Substring(eyrPosition+keyLength, eyrSpace-eyrPosition-keyLength));
+                        int hgtPosition = parameters.IndexOf("hgt");
+                        int hgtSpace = parameters.IndexOf(" ", hgtPosition);
+                        if(hgtSpace == -1){
+                            hgtSpace = parameters.Length;
+                        }
+                        string hgtValue = parameters.Substring(hgtPosition +keyLength, hgtSpace-hgtPosition-keyLength);
+                        int hclPosition = parameters.IndexOf("hcl");
+                        int hclSpace = parameters.IndexOf(" ", hclPosition);
+                        if(hclSpace == -1){
+                            hclSpace = parameters.Length;
+                        }
+                        string hclValue = parameters.Substring(hclPosition+keyLength, hclSpace-hclPosition-keyLength);
+                        int eclPosition = parameters.IndexOf("ecl");
+                        int eclSpace = parameters.IndexOf(" ", eclPosition);
+                        if(eclSpace == -1){
+                            eclSpace = parameters.Length;
+                        }
+                        string eclValue = parameters.Substring(eclPosition+keyLength, eclSpace-eclPosition-keyLength);
+                        int pidPosition = parameters.IndexOf("pid");
+                        int pidSpace = parameters.IndexOf(" ", pidPosition);
+                        if(pidSpace == -1){
+                            pidSpace = parameters.Length;
+                        }
+                        string pidValue = parameters.Substring(pidPosition+keyLength, pidSpace-pidPosition-keyLength);
+
+
+                        if((byrValue >= 1920 && byrValue <= 2002 ) && (iyrValue >=2010 && iyrValue <= 2020) &&(eyrValue >= 2020 && eyrValue <= 2030) && (pidValue.Length == 9)){
+                            if(hclValue.Length == 7 && Regex.IsMatch(hclValue, @"#[a-f |\d]{6}")){
+                                if(eclValue == "amb" || eclValue == "blu" || eclValue == "brn" || eclValue == "gry" || eclValue== "grn" || eclValue == "hzl" || eclValue == "oth"){
+                                    if(Regex.Matches(hgtValue, "in").Count == 1){
+                                        int value = int.Parse(Regex.Replace(hgtValue,"in",""));
+                                        if(value >= 59 && value <=76){
+                                            result = result +1; 
+                                        }
+                                    }
+                                    if( Regex.Matches(parameters, "cm").Count == 1){
+                                        int value = int.Parse(Regex.Replace(hgtValue,"cm",""));
+                                        if(value >= 150 && value <=193){
+                                            result = result +1; 
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                    parameters = "";
+                }
+                
+            }
+
+            return result;
+
+        }
+
 
 
 
