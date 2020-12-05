@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Collections;
 
 namespace AdventCode
 {
@@ -28,12 +29,19 @@ namespace AdventCode
             int result6 = dayThree.trajectoryTwo(input3,slopes);
             Console.WriteLine(result5);
             Console.WriteLine(result6);
-            string[] input4  = readOriginalText(@"C:\workspace\adventOfCode\AdventCode\inputDayFourS.txt");
+            string[] input4  = readOriginalText(@"C:\workspace\adventOfCode\AdventCode\inputDayFour.txt");
             DayFour dayFour = new DayFour();
             int result7 = dayFour.validPassports(input4);
             int result8 = dayFour.validPassportsTwo(input4);
             Console.WriteLine(result7);
             Console.WriteLine(result8);
+            string[] input5 = readOriginalText(@"C:\workspace\adventOfCode\AdventCode\inputDayFive.txt");
+            DayFive dayFive = new DayFive();
+            int result9 = dayFive.highestSeatId(input5);
+            int result10 = dayFive.mySeatId(input5);
+            Console.WriteLine(result9);
+            Console.WriteLine(result10);
+
         }
 
         static int[] readFile(string path){
@@ -294,4 +302,55 @@ namespace AdventCode
     }
 
 
-}
+    public class DayFive{
+
+        public int highestSeatId(string[] input){
+
+         var max = 0;
+            for(int i = 0; i < input.Length; i++){
+                int row = Convert.ToInt32(input[i].Replace("B","1").Replace("F","0").Substring(0,7), 2);
+                int collumn = Convert.ToInt32(input[i].Replace("L","0").Replace("R","1").Substring(7,3),2);
+                int localMax = row*8+collumn;
+                if(localMax > max){
+                    max = localMax;
+                }
+            }
+        return max;
+        }
+
+        public int mySeatId(string[] input){
+            var mySeat = 0;
+            ArrayList seatIds = new ArrayList();
+            for(int i = 0; i < input.Length; i++){
+                int row = Convert.ToInt32(input[i].Replace("B","1").Replace("F","0").Substring(0,7), 2);
+                int collumn = Convert.ToInt32(input[i].Replace("L","0").Replace("R","1").Substring(7,3),2);
+                int seatId = row*8+collumn;
+                seatIds.Add(seatId);
+            }
+
+            seatIds.Sort();
+            int[] seatArray = seatIds.OfType<int>().ToArray();
+
+            for(int j = 0; j < seatArray.Length-1; j++){
+                int localNumber = seatArray[j];
+                if(j == seatArray.Length-2){
+                    if(seatArray[j+1] != localNumber+1){
+                        mySeat = localNumber+1;
+                    }
+                }
+                if(seatArray[j+1] != localNumber+1 && seatArray[j+2] != localNumber+2){
+                    mySeat = localNumber+1;
+                }
+            }
+            return mySeat;
+        }
+
+
+         
+
+        }
+
+
+
+    }
+
